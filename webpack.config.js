@@ -19,7 +19,7 @@ module.exports = {
     globalObject: "this",
     path: path.resolve(__dirname, "dist"),
     library: {
-      name: "MyLibrary",
+      name: "darmona-utils",
       type: "umd",
     },
   },
