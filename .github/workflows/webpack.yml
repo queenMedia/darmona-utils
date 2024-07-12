@@ -36,11 +36,10 @@ jobs:
           git checkout --orphan main-dist
 
           # Remove all files from the working tree
-          git rm -rf .
+          git rm -rf src 
 
           # Add the dist folder
-          git add dist
-          git add package.json
+          git add .
 
           # Commit the dist folder
           git commit -m 'Build: Update dist folder'
