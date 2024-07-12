@@ -39,7 +39,7 @@ jobs:
           git rm -rf src 
 
           # Add the dist folder
-          git add .
+          git add dist package.json
 
           # Commit the dist folder
           git commit -m 'Build: Update dist folder'
