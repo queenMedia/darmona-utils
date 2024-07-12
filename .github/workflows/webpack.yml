@@ -28,10 +28,22 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # Configure Git
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git checkout -B main-dist
+
+          # Create an orphan branch main-dist
+          git checkout --orphan main-dist
+
+          # Remove all files from the working tree
+          git rm -rf .
+
+          # Add the dist folder
           git add dist
+
+          # Commit the dist folder
           git commit -m 'Build: Update dist folder'
+
+          # Force push to the main-dist branch
           git push origin main-dist --force
         if: success()
