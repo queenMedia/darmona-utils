@@ -36,7 +36,7 @@ jobs:
           git checkout --orphan main-dist
 
           # Remove all files from the working tree
-          git rm -rf . 
+          git rm -rf src .gitignore tsconfig.json webpack.config.js yarn.lock
 
           # Add the dist folder
           git add dist package.json
