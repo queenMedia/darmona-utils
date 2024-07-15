@@ -41,11 +41,28 @@ export function aggregateMetrics(
   metrics: string[] = COMMON_METRICS /*options: AggregateCommonMetricsOptions = defaultAggregateCommonMetricsOptions*/
 ): CommonMetricsAggregation {
   console.log("calc aggregations");
+
   const aggregatedMetrics = calcSums(rows, metrics);
 
   return {
     CMP: "Totals",
     aggregationRow: true,
     ...aggregatedMetrics,
+    epc: aggregatedMetrics["CLICKED_ON_BP"]
+      ? aggregatedMetrics["revUsd"] / aggregatedMetrics["CLICKED_ON_BP"]
+      : 0,
+    "LP CTR": aggregatedMetrics["GOT_TO_WP"]
+      ? (aggregatedMetrics["CLICKED_ON_BP"] / aggregatedMetrics["GOT_TO_WP"]) *
+        100
+      : 0,
+    CONV_TO_LPCLICK: aggregatedMetrics["CLICKED_ON_BP"]
+      ? (aggregatedMetrics["CONV"] / aggregatedMetrics["CLICKED_ON_BP"]) * 100
+      : 0,
+    FTD_TO_LPCLICK: aggregatedMetrics["CLICKED_ON_BP"]
+      ? (aggregatedMetrics["FTD"] / aggregatedMetrics["CLICKED_ON_BP"]) * 100
+      : 0,
+    FTD_TO_CONV: aggregatedMetrics["CONV"]
+      ? (aggregatedMetrics["FTD"] / aggregatedMetrics["CONV"]) * 100
+      : 0,
   };
 }
