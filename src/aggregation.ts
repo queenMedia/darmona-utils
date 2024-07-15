@@ -13,7 +13,7 @@ function calcSums(items: any[], keys: string[]) {
 
   for (const item of items) {
     for (const key of keys) {
-      sums[key] = sums[key] ? sums[key] + item[key] : 0;
+      sums[key] = typeof sums[key] !== "undefined" ? sums[key] + item[key] : 0;
     }
   }
 
@@ -40,6 +40,7 @@ export function aggregateMetrics(
   rows: any[],
   metrics: string[] = COMMON_METRICS /*options: AggregateCommonMetricsOptions = defaultAggregateCommonMetricsOptions*/
 ): CommonMetricsAggregation {
+  console.log("calc aggregations");
   const aggregatedMetrics = calcSums(rows, metrics);
 
   return {

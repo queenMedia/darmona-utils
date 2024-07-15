@@ -18,6 +18,10 @@ module.exports = {
     filename: "index.js",
     globalObject: "this",
     path: path.resolve(__dirname, "dist"),
+    // path: path.resolve(
+    //   __dirname,
+    //   "../darmona-new/node_modules/darmona-utils/dist"
+    // ),
     library: {
       name: "darmona-utils",
       type: "umd",
