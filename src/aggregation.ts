@@ -13,7 +13,8 @@ function calcSums(items: any[], keys: string[]) {
 
   for (const item of items) {
     for (const key of keys) {
-      sums[key] = typeof sums[key] !== "undefined" ? sums[key] + item[key] : 0;
+      sums[key] =
+        typeof sums[key] !== "undefined" ? sums[key] + item[key] : item[key];
     }
   }
 
