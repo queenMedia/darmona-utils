@@ -25,7 +25,9 @@ export const COMMON_METRICS = [
   "TOTAL_CLICKS",
   "GOT_TO_WP",
   "GOT_TO_BP",
+  "UNIQUE_IP_GOT_TO_BP",
   "CLICKED_ON_BP",
+  "UNIQUE_IP_CLICKED_ON_BP",
   "CONV",
   "FTD",
 ];
