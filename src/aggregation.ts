@@ -58,11 +58,15 @@ export function aggregateMetrics(
       ? (aggregatedMetrics["CLICKED_ON_BP"] / aggregatedMetrics["GOT_TO_WP"]) *
         100
       : 0,
-    CONV_TO_LPCLICK: aggregatedMetrics["CLICKED_ON_BP"]
-      ? (aggregatedMetrics["CONV"] / aggregatedMetrics["CLICKED_ON_BP"]) * 100
+    CONV_TO_LPCLICK: aggregatedMetrics["UNIQUE_IP_CLICKED_ON_BP"]
+      ? (aggregatedMetrics["CONV"] /
+          aggregatedMetrics["UNIQUE_IP_CLICKED_ON_BP"]) *
+        100
       : 0,
-    FTD_TO_LPCLICK: aggregatedMetrics["CLICKED_ON_BP"]
-      ? (aggregatedMetrics["FTD"] / aggregatedMetrics["CLICKED_ON_BP"]) * 100
+    FTD_TO_LPCLICK: aggregatedMetrics["UNIQUE_IP_CLICKED_ON_BP"]
+      ? (aggregatedMetrics["FTD"] /
+          aggregatedMetrics["UNIQUE_IP_CLICKED_ON_BP"]) *
+        100
       : 0,
     FTD_TO_CONV: aggregatedMetrics["CONV"]
       ? (aggregatedMetrics["FTD"] / aggregatedMetrics["CONV"]) * 100
