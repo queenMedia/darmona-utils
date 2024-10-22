@@ -16,6 +16,13 @@ function calcSums(items: any[], keys: string[]) {
       sums[key] =
         typeof sums[key] !== "undefined" ? sums[key] + item[key] : item[key];
     }
+
+    item["CONV_TO_LPCLICK"] = item["UNIQUE_IP_CLICKED_ON_BP"]
+      ? (item["CONV"] / item["UNIQUE_IP_CLICKED_ON_BP"]) * 100
+      : 0;
+    item["FTD_TO_LPCLICK"] = item["UNIQUE_IP_CLICKED_ON_BP"]
+      ? (item["FTD"] / item["UNIQUE_IP_CLICKED_ON_BP"]) * 100
+      : 0;
   }
 
   return sums;
