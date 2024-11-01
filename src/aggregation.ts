@@ -51,8 +51,9 @@ export function aggregateMetrics(
     CMP: "Totals",
     aggregationRow: true,
     ...aggregatedMetrics,
-    epc: aggregatedMetrics["CLICKED_ON_BP"]
-      ? aggregatedMetrics["revUsd"] / aggregatedMetrics["CLICKED_ON_BP"]
+    epc: aggregatedMetrics["UNIQUE_IP_CLICKED_ON_BP"]
+      ? aggregatedMetrics["revUsd"] /
+        aggregatedMetrics["UNIQUE_IP_CLICKED_ON_BP"]
       : 0,
     "LP CTR": aggregatedMetrics["GOT_TO_WP"]
       ? (aggregatedMetrics["CLICKED_ON_BP"] / aggregatedMetrics["GOT_TO_WP"]) *
