@@ -4,6 +4,10 @@ type CommonMetricsAggregation = {
   aggregationRow: true;
   [key: string]: any;
 };
+
+type Inputs = {
+  lpcuCost: number;
+};
 const defaultAggregateCommonMetricsOptions = { withReasons: false };
 
 //export function aggregateRevenue
@@ -41,20 +45,31 @@ export const SKIP_REASONS = [
 
 export function aggregateMetrics(
   rows: any[],
-  metrics: string[] = COMMON_METRICS /*options: AggregateCommonMetricsOptions = defaultAggregateCommonMetricsOptions*/
+  metrics: string[] = COMMON_METRICS /*options: AggregateCommonMetricsOptions = defaultAggregateCommonMetricsOptions*/,
+  inputs: Inputs = { lpcuCost: 0 }
 ): CommonMetricsAggregation {
   console.log("calc aggregations");
 
   const aggregatedMetrics = calcSums(rows, metrics);
+  let clickCost = 0;
+  let profit = 0;
+  let epc = aggregatedMetrics["UNIQUE_IP_CLICKED_ON_BP"]
+    ? aggregatedMetrics["revUsd"] / aggregatedMetrics["UNIQUE_IP_CLICKED_ON_BP"]
+    : 0;
+
+  if (inputs.lpcuCost) {
+    clickCost = inputs.lpcuCost * aggregatedMetrics["UNIQUE_IP_CLICKED_ON_BP"];
+    profit = aggregatedMetrics["revUsd"] - clickCost;
+    epc = epc && profit / aggregatedMetrics["UNIQUE_IP_CLICKED_ON_BP"];
+  }
 
   return {
     CMP: "Totals",
     aggregationRow: true,
     ...aggregatedMetrics,
-    epc: aggregatedMetrics["UNIQUE_IP_CLICKED_ON_BP"]
-      ? aggregatedMetrics["revUsd"] /
-        aggregatedMetrics["UNIQUE_IP_CLICKED_ON_BP"]
-      : 0,
+    epc,
+    clickCost,
+    profit,
     "LP CTR": aggregatedMetrics["GOT_TO_WP"]
       ? (aggregatedMetrics["CLICKED_ON_BP"] / aggregatedMetrics["GOT_TO_WP"]) *
         100
