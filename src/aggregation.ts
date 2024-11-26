@@ -1,4 +1,3 @@
-type AggregateCommonMetricsOptions = { withReasons: boolean };
 type CommonMetricsAggregation = {
   CMP: "Totals";
   aggregationRow: true;
@@ -8,7 +7,6 @@ type CommonMetricsAggregation = {
 type Inputs = {
   lpcuCost: number;
 };
-const defaultAggregateCommonMetricsOptions = { withReasons: false };
 
 //export function aggregateRevenue
 
@@ -35,7 +33,7 @@ export const COMMON_METRICS = [
   "CONV",
   "FTD",
 ];
-export const REVENUES = ["revUsd", "revEur"];
+export const REVENUES = ["USD_REV", "EUR_REV"];
 export const SKIP_REASONS = [
   "QUERY_RULES_SKIP",
   "IP_BLOCKED",
@@ -54,12 +52,13 @@ export function aggregateMetrics(
   let clickCost = 0;
   let profit = 0;
   let epc = aggregatedMetrics["UNIQUE_IP_CLICKED_ON_BP"]
-    ? aggregatedMetrics["revUsd"] / aggregatedMetrics["UNIQUE_IP_CLICKED_ON_BP"]
+    ? aggregatedMetrics["USD_REV"] /
+      aggregatedMetrics["UNIQUE_IP_CLICKED_ON_BP"]
     : 0;
 
   if (inputs.lpcuCost) {
     clickCost = inputs.lpcuCost * aggregatedMetrics["UNIQUE_IP_CLICKED_ON_BP"];
-    profit = aggregatedMetrics["revUsd"] - clickCost;
+    profit = aggregatedMetrics["USD_REV"] - clickCost;
     epc = epc && profit / aggregatedMetrics["UNIQUE_IP_CLICKED_ON_BP"];
   }
 
